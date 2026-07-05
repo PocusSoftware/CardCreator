@@ -269,9 +269,6 @@
           {/if}
         </div>
       </ScrollArea>
-      <div class="border-border/40 border-t px-3 py-2">
-        <p class="text-muted-foreground text-center text-xs">ported from FxPanel</p>
-      </div>
     </aside>
   </div>
 </div>

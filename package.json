@@ -1,7 +1,7 @@
 {
 	"name": "card-creator",
 	"version": "1.0.0",
-	"description": "Standalone deferral card creator — extracted from fxPanel's Deferral Studio. Bun + Svelte 5.",
+	"description": "Standalone deferral card creator",
 	"type": "module",
 	"scripts": {
 		"dev": "bun --hot server/index.ts",
