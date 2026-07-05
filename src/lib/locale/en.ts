@@ -74,6 +74,7 @@ export const englishLocale = {
       "canvas": {
         "editor_title": "Card Editor",
         "preview_title": "Preview",
+        "docs_title": "Docs",
         "size_line": "%{width}×%{height}px",
         "snap_free": "free placement",
         "snap_grid": "snap %{grid}px",

@@ -90,7 +90,7 @@
     ...(Object.entries(DEFERRAL_CARD_SIZE_PRESETS) as [
       DeferralCardSizePresetId,
       (typeof DEFERRAL_CARD_SIZE_PRESETS)[DeferralCardSizePresetId],
-    ][]).map(([id]) => ({ value: id, label: deferralSizePresetLabel(t, id) })),
+    ][]).map(([id]) => ({ value: id, label: deferralSizePresetLabel(t, id), disabled: true })),
     { value: "custom", label: t("panel.card_editor.toolbar.size_custom") },
   ]);
 </script>
@@ -208,6 +208,18 @@
         onclick={onPreview}
       >
         <Icon name="eye" class="size-4" />
+      </Button>
+    </Tooltip>
+
+    <Tooltip label={t("panel.card_editor.canvas.docs_title")}>
+      <Button
+        type="button" size="icon"
+        variant="ghost"
+        class="size-8 shrink-0 cursor-not-allowed text-muted-foreground/40"
+        aria-label={t("panel.card_editor.canvas.docs_title")}
+        disabled
+      >
+        <Icon name="book-open" class="size-4" />
       </Button>
     </Tooltip>
 

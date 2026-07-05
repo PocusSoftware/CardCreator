@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  export type SelectOption = { value: string; label: string; group?: string };
+  export type SelectOption = { value: string; label: string; group?: string; disabled?: boolean };
 </script>
 
 <script lang="ts">
@@ -114,11 +114,20 @@
           type="button"
           role="option"
           aria-selected={value === o.value}
+          aria-disabled={o.disabled}
+          disabled={o.disabled}
           class={cn(
-            "flex w-full cursor-pointer items-center rounded-sm px-2 py-1.5 text-left text-sm outline-hidden",
-            value === o.value ? "bg-secondary text-secondary-foreground" : "hover:bg-secondary/60",
+            "flex w-full items-center rounded-sm px-2 py-1.5 text-left text-sm outline-hidden",
+            o.disabled
+              ? "text-muted-foreground/50 cursor-not-allowed"
+              : value === o.value
+                ? "bg-secondary text-secondary-foreground cursor-pointer"
+                : "hover:bg-secondary/60 cursor-pointer",
           )}
-          onclick={() => choose(o.value)}
+          onclick={() => {
+            if (o.disabled) return;
+            choose(o.value);
+          }}
         >
           {o.label}
         </button>
