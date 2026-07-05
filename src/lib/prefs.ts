@@ -1,0 +1,33 @@
+const STORAGE_KEY = "card.deferralStudio.prefs";
+
+export type DeferralStudioPrefs = {
+    showGrid: boolean;
+    snapToGrid: boolean;
+};
+
+export const DEFAULT_DEFERRAL_STUDIO_PREFS: DeferralStudioPrefs = {
+    showGrid: false,
+    snapToGrid: true,
+};
+
+export function loadDeferralStudioPrefs(): DeferralStudioPrefs {
+    if (typeof window === "undefined") return DEFAULT_DEFERRAL_STUDIO_PREFS;
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return DEFAULT_DEFERRAL_STUDIO_PREFS;
+        const parsed = JSON.parse(raw) as Partial<DeferralStudioPrefs>;
+        return {
+            showGrid: parsed.showGrid ?? DEFAULT_DEFERRAL_STUDIO_PREFS.showGrid,
+            snapToGrid: parsed.snapToGrid ?? DEFAULT_DEFERRAL_STUDIO_PREFS.snapToGrid,
+        };
+    } catch {
+        return DEFAULT_DEFERRAL_STUDIO_PREFS;
+    }
+}
+
+export function saveDeferralStudioPrefs(prefs: DeferralStudioPrefs): void {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    } catch {
+    }
+}

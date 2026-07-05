@@ -1,0 +1,37 @@
+{
+	"name": "card-creator",
+	"version": "1.0.0",
+	"description": "Standalone deferral card creator — extracted from fxPanel's Deferral Studio. Bun + Svelte 5.",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --hot server/index.ts",
+		"start": "NODE_ENV=production bun server/index.ts",
+		"build": "NODE_ENV=production bun scripts/build.ts",
+		"lint": "oxlint src/ server/",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"test": "bun test",
+		"doctor": "svelte-doctor check",
+		"doctor:fix": "svelte-doctor fix"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@fontsource-variable/inter": "^5.2.8",
+		"@fontsource-variable/jetbrains-mono": "^5.2.8",
+		"dequal": "^2.0.3",
+		"svelte": "5.56.4",
+		"zod": "^4.3.6"
+	},
+	"devDependencies": {
+		"@tailwindcss/postcss": "^4.2.4",
+		"@types/bun": "latest",
+		"oxlint": "^1.72.0",
+		"postcss": "^8.5.12",
+		"svelte-check": "^4.7.1",
+		"tailwindcss": "^4.2.4",
+		"typescript": "^5"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	}
+}

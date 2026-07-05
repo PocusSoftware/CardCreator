@@ -1,0 +1,24 @@
+{
+  "lint": true,
+  "deadCode": true,
+  "cache": true,
+  "watch": {
+    "deadCode": "lazy"
+  },
+  "reports": {
+    "html": ".svelte-doctor/report.html",
+    "markdown": ".svelte-doctor/report.md"
+  },
+  "ignore": {
+    "files": [
+      ".build/",
+      "src/shared/"
+    ],
+    "rules": [
+      "no-unsafe-html",
+      "no-inline-event-handler",
+      "no-style-tag-props",
+      "no-inline-object"
+    ]
+  }
+}
