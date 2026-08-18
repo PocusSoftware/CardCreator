@@ -45,6 +45,10 @@
     onRestoreDefault,
     onSave,
     onPreview,
+    onUndo,
+    onRedo,
+    canUndo,
+    canRedo,
     isSaving,
     isCurrentDirty,
     dirtyScenarioIds,
@@ -68,6 +72,10 @@
     onRestoreDefault: () => void;
     onSave: () => void;
     onPreview: () => void;
+    onUndo: () => void;
+    onRedo: () => void;
+    canUndo: boolean;
+    canRedo: boolean;
     isSaving: boolean;
     isCurrentDirty: boolean;
     dirtyScenarioIds: string[];
@@ -93,6 +101,12 @@
     ][]).map(([id]) => ({ value: id, label: deferralSizePresetLabel(t, id), disabled: true })),
     { value: "custom", label: t("panel.card_editor.toolbar.size_custom") },
   ]);
+
+  const isMac =
+    typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform ?? navigator.userAgent);
+  const modKey = isMac ? "⌘" : "Ctrl";
+  const undoLabel = $derived(`${t("panel.card_editor.toolbar.undo")} (${modKey}Z)`);
+  const redoLabel = $derived(`${t("panel.card_editor.toolbar.redo")} (${modKey}⇧Z)`);
 </script>
 
 <div class="bg-card/80 flex h-12 shrink-0 items-center gap-2 rounded-xl border px-3 backdrop-blur-sm">
@@ -111,6 +125,33 @@
     class:pointer-events-none={!scenarioId}
     class:opacity-40={!scenarioId}
   >
+    <div class="bg-border h-5 w-px shrink-0"></div>
+
+    <Tooltip label={undoLabel}>
+      <Button
+        type="button" size="icon"
+        variant="ghost"
+        class="size-8 shrink-0"
+        aria-label={undoLabel}
+        disabled={!canUndo}
+        onclick={onUndo}
+      >
+        <Icon name="undo" class="size-4" />
+      </Button>
+    </Tooltip>
+    <Tooltip label={redoLabel}>
+      <Button
+        type="button" size="icon"
+        variant="ghost"
+        class="size-8 shrink-0"
+        aria-label={redoLabel}
+        disabled={!canRedo}
+        onclick={onRedo}
+      >
+        <Icon name="redo" class="size-4" />
+      </Button>
+    </Tooltip>
+
     <div class="bg-border h-5 w-px shrink-0"></div>
 
     <Select

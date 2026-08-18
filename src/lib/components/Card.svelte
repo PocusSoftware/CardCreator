@@ -239,8 +239,7 @@
       {/if}
       {#each elements as el (el.id)}
         {@const enabled = el.enabled !== false}
-        {#if !enabled || el.type === "logo"}
-        {:else}
+        {#if enabled && el.type !== "logo"}
           {@const size = estimateCanvasElementSize(el, contentWidth)}
           {@const width = size.width}
           {@const height = size.height}

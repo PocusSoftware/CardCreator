@@ -55,6 +55,8 @@ export const englishLocale = {
         "watermark_logo": "Watermark logo",
         "snap_to_grid": "Snap to grid",
         "show_grid": "Show grid",
+        "undo": "Undo",
+        "redo": "Redo",
         "file": "File",
         "export_all": "Export all (JSON)",
         "export_all_lua": "Export all (Lua)",

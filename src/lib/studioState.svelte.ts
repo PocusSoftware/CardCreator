@@ -160,6 +160,14 @@ const EMPTY_ADDON_META: DeferralAddonMetaResponse = {
   installedAddonIds: [],
 };
 
+interface CanvasHistorySnapshot {
+  canvasElements: DeferralCanvasElement[];
+  cardSize: { width: number; height: number };
+}
+
+const HISTORY_LIMIT = 100;
+const HISTORY_COALESCE_MS = 600;
+
 export function createStudioState() {
   const initialConfigRaw = loadStoredDeferralCards();
   const initialConfig = canonicalDeferralCardsForDiff(normalizeDeferralCardsConfig(initialConfigRaw));
@@ -186,6 +194,61 @@ export function createStudioState() {
   let studioPrefs = $state<DeferralStudioPrefs>(
     typeof window !== "undefined" ? loadDeferralStudioPrefs() : DEFAULT_DEFERRAL_STUDIO_PREFS,
   );
+
+  let historyPast = $state<CanvasHistorySnapshot[]>([]);
+  let historyFuture = $state<CanvasHistorySnapshot[]>([]);
+  let lastHistoryPushAt = 0;
+
+  const snapshotNow = (): CanvasHistorySnapshot => ({
+    canvasElements: structuredClone(canvasElements),
+    cardSize: { ...cardSize },
+  });
+
+  const clearHistory = () => {
+    historyPast = [];
+    historyFuture = [];
+  };
+
+  const pushHistory = (coalesce: boolean) => {
+    const now = Date.now();
+    if (coalesce && historyPast.length && now - lastHistoryPushAt < HISTORY_COALESCE_MS) {
+      lastHistoryPushAt = now;
+      return;
+    }
+    historyPast = [...historyPast, snapshotNow()].slice(-HISTORY_LIMIT);
+    historyFuture = [];
+    lastHistoryPushAt = now;
+  };
+
+  const restoreSnapshot = (snap: CanvasHistorySnapshot) => {
+    if (!scenarioId || !template) return;
+    canvasElements = snap.canvasElements;
+    cardSize = snap.cardSize;
+    sizePreset = matchSizePreset(snap.cardSize.width, snap.cardSize.height);
+    const next = templateWithCanvas(template, {
+      width: snap.cardSize.width,
+      height: snap.cardSize.height,
+      elements: snap.canvasElements,
+    });
+    deferralCards = patchDeferralScenario(deferralCards, scenarioId, next);
+    selectedId = null;
+  };
+
+  const undo = () => {
+    if (!historyPast.length) return;
+    const prev = historyPast[historyPast.length - 1]!;
+    historyPast = historyPast.slice(0, -1);
+    historyFuture = [snapshotNow(), ...historyFuture].slice(0, HISTORY_LIMIT);
+    restoreSnapshot(prev);
+  };
+
+  const redo = () => {
+    if (!historyFuture.length) return;
+    const next = historyFuture[0]!;
+    historyFuture = historyFuture.slice(1);
+    historyPast = [...historyPast, snapshotNow()].slice(-HISTORY_LIMIT);
+    restoreSnapshot(next);
+  };
 
   const snapCoord = (value: number) => (studioPrefs.snapToGrid ? snapDeferralCoord(value) : Math.round(value));
 
@@ -267,6 +330,7 @@ export function createStudioState() {
     cardSize = { width: canvas.width, height: resolveCanvasHeight(canvas) };
     sizePreset = matchSizePreset(canvas.width, resolveCanvasHeight(canvas));
     canvasElements = loadStudioCanvasElements(tpl, id, sampleBody);
+    clearHistory();
   };
 
   const revertScenarioToSaved = (id: string) => {
@@ -318,6 +382,7 @@ export function createStudioState() {
     height: number,
     preset: DeferralCardSizePresetId | "custom",
   ) => {
+    pushHistory(true);
     const clamped = clampCardSize(width, height);
     cardSize = clamped;
     sizePreset = preset;
@@ -332,8 +397,9 @@ export function createStudioState() {
     deferralCards = patchDeferralScenario(deferralCards, scenarioId, next);
   };
 
-  const persistCanvas = (elements: DeferralCanvasElement[]) => {
+  const persistCanvas = (elements: DeferralCanvasElement[], coalesce = false) => {
     if (!scenarioId || !template) return;
+    pushHistory(coalesce);
     const normalized = normalizeCanvasElements(elements, cardSize.width, cardSize.height);
     canvasElements = normalized;
     const next = templateWithCanvas(template, {
@@ -358,7 +424,10 @@ export function createStudioState() {
             ...(patch.y !== undefined ? { y: snapCoord(patch.y) } : {}),
           }
         : patch;
-    persistCanvas(canvasElements.map((e) => (e.id === selectedId ? { ...e, ...snapped } : e)));
+    persistCanvas(
+      canvasElements.map((e) => (e.id === selectedId ? { ...e, ...snapped } : e)),
+      true,
+    );
   };
 
   const handleAddBlock = (type: DeferralBlockType) => {
@@ -413,6 +482,7 @@ export function createStudioState() {
           PREVIEW_SAMPLE[id as DeferralScenarioId]?.body ?? "",
         );
         selectedId = null;
+        clearHistory();
         toast.success({
           title: t("panel.card_editor.default_restored_title"),
           msg: t("panel.card_editor.default_restored_msg"),
@@ -616,6 +686,14 @@ export function createStudioState() {
     get deferralCardsForFileOps() {
       return deferralCardsForFileOps;
     },
+    get canUndo() {
+      return historyPast.length > 0;
+    },
+    get canRedo() {
+      return historyFuture.length > 0;
+    },
+    undo,
+    redo,
     handleSelectScenario,
     applyCardSize,
     handleMoveElement,

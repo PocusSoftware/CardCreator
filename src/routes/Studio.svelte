@@ -55,7 +55,27 @@
     if (!file) return;
     await s.handleUploadImage(file);
   };
+
+  const isEditableTarget = (target: EventTarget | null) => {
+    if (!(target instanceof HTMLElement)) return false;
+    return target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable;
+  };
+
+  const onWindowKeydown = (e: KeyboardEvent) => {
+    if (!(e.metaKey || e.ctrlKey)) return;
+    const key = e.key.toLowerCase();
+    if (key !== "z" && key !== "y") return;
+    if (isEditableTarget(e.target)) return;
+    e.preventDefault();
+    if (key === "y" || (key === "z" && e.shiftKey)) {
+      s.redo();
+    } else {
+      s.undo();
+    }
+  };
 </script>
+
+<svelte:window onkeydown={onWindowKeydown} />
 
 <div class="flex h-screen w-full flex-col gap-3 p-3">
   <div class="relative z-30 shrink-0">
@@ -78,6 +98,10 @@
       onRestoreDefault={s.handleRestoreDefault}
       onSave={s.handleSave}
       onPreview={handlePreview}
+      onUndo={s.undo}
+      onRedo={s.redo}
+      canUndo={s.canUndo}
+      canRedo={s.canRedo}
       isSaving={s.isSaving}
       isCurrentDirty={s.isCurrentDirty}
       dirtyScenarioIds={s.dirtyScenarioIds}
