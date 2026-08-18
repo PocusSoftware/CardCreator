@@ -131,6 +131,7 @@
         isBlank={false}
         onSelect={s.setSelectedId}
         onMoveElement={s.handleMoveElement}
+        onRemove={s.handleRemoveSelected}
       />
     {:else}
       <Canvas

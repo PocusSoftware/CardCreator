@@ -24,6 +24,7 @@
     isBlank,
     onSelect,
     onMoveElement,
+    onRemove,
   }: {
     cardWidth: number;
     cardHeight: number;
@@ -36,6 +37,7 @@
     isBlank: boolean;
     onSelect: (id: string | null) => void;
     onMoveElement: (id: string, x: number, y: number) => void;
+    onRemove?: (id: string) => void;
   } = $props();
 </script>
 
@@ -79,6 +81,7 @@
         {tokens}
         {onSelect}
         {onMoveElement}
+        {onRemove}
       />
     {/if}
   </div>

@@ -169,6 +169,7 @@
     tokens,
     onSelect,
     onMoveElement,
+    onRemove,
   }: {
     cardWidth: number;
     cardHeight: number;
@@ -180,6 +181,7 @@
     tokens: DeferralCardTokens;
     onSelect: (id: string | null) => void;
     onMoveElement: (id: string, x: number, y: number) => void;
+    onRemove?: (id: string) => void;
   } = $props();
 
   let centerGuides = $state<CenterGuideState | null>(null);
@@ -274,7 +276,16 @@
                 ? `left:${el.x}px;top:${el.y}px;width:max-content;min-width:${Math.min(width, textMaxWidth)}px;max-width:${textMaxWidth}px;min-height:${height}px;height:auto`
                 : `left:${el.x}px;top:${el.y}px;width:${width}px;height:${height}px`}
               onclick={(e) => { e.stopPropagation(); onSelect(el.id); }}
-              onkeydown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(el.id); } }}
+              onkeydown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelect(el.id);
+                } else if (e.key === "Backspace" || e.key === "Delete") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onRemove?.(el.id);
+                }
+              }}
             >
               {#if el.type === "custom_image" && src?.startsWith("data:image")}
                 <AnimatedImage src={src} alt="" class="pointer-events-none h-full w-full object-contain" />
