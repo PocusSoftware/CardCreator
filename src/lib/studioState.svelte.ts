@@ -441,8 +441,12 @@ export function createStudioState() {
 
   const handleRemoveSelected = () => {
     if (!selectedId) return;
-    persistCanvas(canvasElements.filter((e) => e.id !== selectedId));
-    selectedId = null;
+    handleRemoveElement(selectedId);
+  };
+
+  const handleRemoveElement = (id: string) => {
+    persistCanvas(canvasElements.filter((e) => e.id !== id));
+    if (selectedId === id) selectedId = null;
   };
 
   const handleToggleLayerVisible = (id: string) => {
@@ -700,6 +704,7 @@ export function createStudioState() {
     handlePatchSelected,
     handleAddBlock,
     handleRemoveSelected,
+    handleRemoveElement,
     handleToggleLayerVisible,
     handleReorderLayers,
     handleRestoreDefault,

@@ -12,12 +12,14 @@
     onSelect,
     onToggleVisible,
     onReorder,
+    onRemove,
   }: {
     elements: DeferralCanvasElement[];
     selectedId: string | null;
     onSelect: (id: string) => void;
     onToggleVisible: (id: string) => void;
     onReorder: (elements: DeferralCanvasElement[]) => void;
+    onRemove: (id: string) => void;
   } = $props();
 
   const displayIds = $derived.by(() => [...elements].reverse().map((el) => el.id));
@@ -63,16 +65,25 @@
 {#if !elements.length}
   <p class="text-muted-foreground text-xs">{t("panel.card_editor.layers.empty")}</p>
 {:else}
-  <ol class="flex flex-col gap-0.5">
+  <ol class="flex flex-col gap-0.5" role="listbox">
     {#each displayIds as id (id)}
       {@const el = elementById.get(id)}
       {#if el}
         {@const hidden = el.enabled === false}
         <li
           draggable="true"
+          tabindex="0"
+          role="option"
+          aria-selected={selectedId === el.id}
           ondragstart={(e) => onDragStart(e, el.id)}
           ondragover={(e) => onDragOver(e, el.id)}
           ondrop={(e) => onDrop(e, el.id)}
+          onkeydown={(e) => {
+            if (e.key === "Backspace" || e.key === "Delete") {
+              e.preventDefault();
+              onRemove(el.id);
+            }
+          }}
           class={cn(
             "flex w-full min-w-0 items-center gap-1 rounded-md px-1 py-1 text-xs transition-colors",
             "cursor-grab active:cursor-grabbing",

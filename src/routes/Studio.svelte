@@ -134,6 +134,7 @@
               onSelect={s.setSelectedId}
               onToggleVisible={s.handleToggleLayerVisible}
               onReorder={s.handleReorderLayers}
+              onRemove={s.handleRemoveElement}
             />
           </div>
         </ScrollArea>
