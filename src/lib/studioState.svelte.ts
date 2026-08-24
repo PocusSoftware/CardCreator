@@ -200,7 +200,7 @@ export function createStudioState() {
   let lastHistoryPushAt = 0;
 
   const snapshotNow = (): CanvasHistorySnapshot => ({
-    canvasElements: structuredClone(canvasElements),
+    canvasElements: structuredClone($state.snapshot(canvasElements)),
     cardSize: { ...cardSize },
   });
 
