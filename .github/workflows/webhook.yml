@@ -1,0 +1,14 @@
+name: Webhook
+
+on:
+  push:
+
+jobs:
+  discord:
+    name: Discord Webhook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord webhook
+        uses: Qbox-project/pipeline-pling@v1
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
