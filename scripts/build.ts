@@ -35,7 +35,7 @@ const cssResult = await postcss([tailwindcss()]).process(cssInput, {
 });
 await Bun.write(join(DIST, "app.css"), cssResult.css);
 
-for (const family of ["inter", "jetbrains-mono"]) {
+for (const family of ["inter", "jetbrains-mono", "schibsted-grotesk", "geist-mono"]) {
 	const dst = join(DIST, `node_modules/@fontsource-variable/${family}/files`);
 	await mkdir(dst, { recursive: true });
 	await cp(

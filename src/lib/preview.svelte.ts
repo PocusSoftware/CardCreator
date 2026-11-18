@@ -42,7 +42,7 @@ export function closePreview(): void {
 export function downloadPublishedCard(): void {
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deferral card — ${previewState.scenarioId ?? ""}</title>
+<title>Deferral card: ${previewState.scenarioId ?? ""}</title>
 <style>body{margin:0;background:#0f1116;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif}</style>
 </head><body>${previewState.html}</body></html>`;
   const blob = new Blob([html], { type: "text/html" });

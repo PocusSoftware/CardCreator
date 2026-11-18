@@ -12,7 +12,7 @@ export const englishLocale = {
       "coord_y": "Y",
       "width": "Width",
       "height": "Height",
-      "custom_text_placeholder": "Write anything — plain text or HTML. Use {requestId}, {customMessage}, or your placeholders.",
+      "custom_text_placeholder": "Write anything: plain text or HTML. Use {requestId}, {customMessage}, or your placeholders.",
       "image_upload_failed": "Image upload failed",
       "image_preview_alt": "Uploaded image preview",
       "no_image_yet": "No image yet. SVG up to %{svgKb} KB; PNG/GIF up to %{pngKb} KB each (GIF animates).",
@@ -29,7 +29,7 @@ export const englishLocale = {
       "restore_default_message": "Replace this scenario with the built-in default layout and content. Your current edits are not saved until you click Save.",
       "restore_action": "Restore",
       "cannot_restore_title": "Cannot restore",
-      "cannot_restore_msg": "Addon scenarios use the addon default template — re-save from the addon manifest.",
+      "cannot_restore_msg": "Addon scenarios use the addon default template. Re-save from the addon manifest.",
       "default_restored_title": "Default layout restored",
       "default_restored_msg": "Save to persist.",
       "save_failed_select_scenario": "Select a scenario first.",
@@ -67,6 +67,47 @@ export const englishLocale = {
         "save_card": "Save card",
         "saved": "Saved",
         "back": "Back"
+      },
+      "app": {
+        "title": "Card Creator",
+        "subtitle": "Deferral card studio",
+        "scenarios_heading": "Scenarios",
+        "unsaved": "Unsaved changes",
+        "groups": {
+          "ban": "Bans",
+          "whitelist": "Whitelist",
+          "queue": "Queue",
+          "general": "General"
+        }
+      },
+      "preview": {
+        "eyebrow": "Preview",
+        "download_html": "Download HTML"
+      },
+      "templates": {
+        "open": "Templates",
+        "eyebrow": "Templates",
+        "title": "Start from a template",
+        "subtitle": "Ready-made layouts for %{scenario}. Applying one replaces the current layout. Undo brings it back.",
+        "apply": "Use template",
+        "applied_title": "%{name} applied",
+        "applied_msg": "Press Undo to go back, or Save to keep it.",
+        "empty": "No templates for this scenario yet.",
+        "categories": {
+          "general": "General",
+          "ban": "Ban",
+          "whitelist": "Whitelist",
+          "queue": "Queue"
+        }
+      },
+      "properties": {
+        "content": "Content",
+        "position": "Position",
+        "image": "Image",
+        "button": "Button",
+        "delete": "Delete element",
+        "empty_title": "Nothing selected",
+        "shortcuts": "Shortcuts"
       },
       "layers": {
         "empty": "No elements yet.",
@@ -156,7 +197,7 @@ export const englishLocale = {
         },
         "custom_text": {
           "label": "Custom text",
-          "description": "Freeform text — write anything; supports placeholders and basic HTML",
+          "description": "Freeform text with placeholders and basic HTML",
           "default_content": ""
         },
         "request_id": {
@@ -201,66 +242,66 @@ export const englishLocale = {
         },
         "custom_image": {
           "label": "Custom image",
-          "description": "Upload SVG, PNG, or GIF — shown on the deferral card",
+          "description": "Upload an SVG, PNG, or GIF to show on the deferral card",
           "default_content": ""
         },
         "button": {
           "label": "Button (link)",
-          "description": "Clickable link styled as a button — opens in the player's browser (http/https only)",
+          "description": "Clickable link styled as a button that opens in the player's browser (http/https only)",
           "default_content": ""
         }
       },
       "scenarios": {
         "ban_temporary": {
-          "label": "Ban — temporary",
+          "label": "Ban: temporary",
           "description": "Shown when the player has an active timed ban."
         },
         "ban_permanent": {
-          "label": "Ban — permanent",
+          "label": "Ban: permanent",
           "description": "Shown when the player has a permanent ban."
         },
         "whitelist_pending": {
-          "label": "Whitelist — pending approval",
+          "label": "Whitelist: pending approval",
           "description": "Manual review: player is not on the list; includes request ID when enabled."
         },
         "whitelist_schedule_closed": {
-          "label": "Whitelist — applications closed",
+          "label": "Whitelist: applications closed",
           "description": "Join attempted outside configured application windows."
         },
         "whitelist_admin_denied": {
-          "label": "Whitelist — admin-only denied",
+          "label": "Whitelist: admin-only denied",
           "description": "Maintenance mode: player is not a panel administrator."
         },
         "whitelist_admin_insufficient_ids": {
-          "label": "Whitelist — admin-only missing IDs",
+          "label": "Whitelist: admin-only missing IDs",
           "description": "Maintenance mode: missing license or Discord identifier."
         },
         "whitelist_discord_member_denied": {
-          "label": "Whitelist — not in Discord",
+          "label": "Whitelist: not in Discord",
           "description": "Discord member workflow: user is not in the guild."
         },
         "whitelist_discord_member_insufficient_ids": {
-          "label": "Whitelist — Discord member missing ID",
+          "label": "Whitelist: Discord member missing ID",
           "description": "Discord member workflow: no discord: identifier."
         },
         "whitelist_discord_roles_not_member": {
-          "label": "Whitelist — roles: not in guild",
+          "label": "Whitelist: not in Discord guild (roles)",
           "description": "Discord roles workflow: user is not in the guild."
         },
         "whitelist_discord_roles_no_roles": {
-          "label": "Whitelist — roles: missing role",
+          "label": "Whitelist: missing Discord role",
           "description": "Discord roles workflow: member lacks a required role."
         },
         "whitelist_discord_roles_insufficient_ids": {
-          "label": "Whitelist — roles: missing ID",
+          "label": "Whitelist: Discord roles missing ID",
           "description": "Discord roles workflow: no discord: identifier."
         },
         "whitelist_insufficient_license": {
-          "label": "Whitelist — missing license",
+          "label": "Whitelist: missing license",
           "description": "Manual review: no license identifier on connect."
         },
         "whitelist_error": {
-          "label": "Whitelist — validation error",
+          "label": "Whitelist: validation error",
           "description": "Discord or internal validation failed while checking whitelist."
         },
         "connection_queue": {

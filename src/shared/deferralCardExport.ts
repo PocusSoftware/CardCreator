@@ -163,7 +163,7 @@ function parseTemplate(raw: unknown): DeferralCardTemplate | null {
 }
 
 export type ImportDeferralOptions = {
-    /** Addon IDs currently installed/running — addon scenarios import only when listed. */
+    /** Addon IDs currently installed/running, addon scenarios import only when listed. */
     installedAddonIds?: string[];
 };
 
@@ -224,7 +224,7 @@ export function importDeferralCardFile(
                     ok: false,
                     error:
                         skippedAddon.length > beforeSkip
-                            ? `Addon "${addonId}" is not installed — cannot import scenario "${file.scenario}".`
+                            ? `Addon "${addonId}" is not installed, so it cannot import scenario "${file.scenario}".`
                             : `Could not import addon scenario "${file.scenario}".`,
                 };
             }

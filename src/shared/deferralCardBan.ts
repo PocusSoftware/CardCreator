@@ -1,4 +1,4 @@
-/** Studio preview strings baked into saved canvas layouts — replaced at connect time when ban data exists. */
+/** Studio preview strings baked into saved canvas layouts, replaced at connect time when ban data exists. */
 export const BAN_STUDIO_PREVIEW_SNIPPETS = {
     expiresDuration: '2 days',
     reasonExample: 'Example ban',

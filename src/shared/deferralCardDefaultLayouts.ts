@@ -515,7 +515,7 @@ export function shouldResetToClassicDeferralTemplate(
     return matchesLegacyBlandFields(scenarioId, template);
 }
 
-/** @deprecated Use {@link shouldResetToClassicDeferralTemplate} — kept for tests. */
+/** @deprecated Use {@link shouldResetToClassicDeferralTemplate}, kept for tests. */
 export function isLegacyBlandDeferralTemplate(scenarioId: DeferralScenarioId, template: DeferralCardTemplate): boolean {
     return matchesLegacyBlandFields(scenarioId, template);
 }

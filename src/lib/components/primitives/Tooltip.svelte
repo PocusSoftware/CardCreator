@@ -56,7 +56,7 @@
     use:portal
     role="tooltip"
     class={cn(
-      "bg-popover text-popover-foreground pointer-events-none fixed z-50 -translate-x-1/2 whitespace-nowrap rounded-md border px-2 py-1 text-xs shadow-md",
+      "bg-popover text-foreground pointer-events-none fixed z-[110] -translate-x-1/2 whitespace-nowrap rounded-md border px-2 py-1 text-xs shadow-lg shadow-black/40",
       side === "bottom" ? "translate-y-0" : "-translate-y-full",
     )}
     style="top:{pos.top}px;left:{pos.left}px"

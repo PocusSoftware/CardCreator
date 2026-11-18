@@ -95,7 +95,7 @@ export const DEFERRAL_BLOCK_META: Record<
     },
     custom_text: {
         label: 'Custom text',
-        description: 'Freeform text — write anything; supports placeholders and basic HTML',
+        description: 'Freeform text with placeholders and basic HTML',
         defaultContent: '',
     },
     request_id: { label: 'Request ID', description: 'Shows the player request ID when available' },
@@ -114,12 +114,12 @@ export const DEFERRAL_BLOCK_META: Record<
     logo: { label: 'Watermark logo', description: 'Watermark logo (respects global logo toggle)' },
     custom_image: {
         label: 'Custom image',
-        description: 'Upload SVG, PNG, or GIF — shown on the deferral card',
+        description: 'Upload an SVG, PNG, or GIF to show on the deferral card',
         defaultContent: '',
     },
     button: {
         label: 'Button (link)',
-        description: 'Clickable link styled as a button — opens in the player’s browser (http/https only)',
+        description: 'Clickable link styled as a button that opens in the player’s browser (http/https only)',
         defaultContent:
             '{"label":"Join Discord","url":"{discordInvite}","backgroundColor":"#5865F2","textColor":"#ffffff"}',
     },

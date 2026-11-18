@@ -1,6 +1,5 @@
 .build
 node_modules
-.svelte-doctor
 .vscode
 dist
 .wrangler

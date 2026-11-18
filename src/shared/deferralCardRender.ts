@@ -117,7 +117,7 @@ export function resolveDeferralIdDisplay(
     return null;
 }
 
-/** FiveM deferral UI only allows standard tags — never emit raw `<codeid>` in canvas output. */
+/** FiveM deferral UI only allows standard tags, never emit raw `<codeid>` in canvas output. */
 export function formatDeferralActionIdHtml(id: string): string {
     const safe = id.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
     return `${htmlCodeIdTag}${safe}</code>`;
@@ -354,7 +354,7 @@ const CANVAS_TEXT_LIKE_TYPES = new Set<DeferralCanvasElement['type']>([
     'tier_name',
 ]);
 
-/** FiveM defers to estimated box widths and breaks words mid-line — use min-width + nowrap instead. */
+/** FiveM defers to estimated box widths and breaks words mid-line, so use min-width + nowrap instead. */
 function canvasElementStyle(el: DeferralCanvasElement, cardContentWidth: number): string {
     const parts = ['position:absolute', `left:${el.x}px`, `top:${el.y}px`, 'box-sizing:border-box'];
     const isTextLike = CANVAS_TEXT_LIKE_TYPES.has(el.type);

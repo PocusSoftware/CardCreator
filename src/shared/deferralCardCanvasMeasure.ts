@@ -13,7 +13,7 @@ import {
 const BR_TAG_SPLIT = /<br\s*\/?>/gi;
 const BR_OR_NL_SPLIT = /<br\s*\/?>|\n/gi;
 
-/** Safe split for HTML line breaks — never throws on null/undefined/non-string. */
+/** Safe split for HTML line breaks, never throws on null/undefined/non-string. */
 export function splitHtmlLines(value: unknown, mode: 'br' | 'br-or-nl' = 'br'): string[] {
     if (value == null) return [];
     const text = String(value).trim();

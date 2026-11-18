@@ -89,6 +89,7 @@ function assetHeaders(path: string): Record<string, string> {
   if (path.endsWith(".js")) return { "content-type": "text/javascript; charset=utf-8" };
   if (path.endsWith(".css")) return { "content-type": "text/css; charset=utf-8" };
   if (path.endsWith(".svg")) return { "content-type": "image/svg+xml" };
+  if (path.endsWith(".png")) return { "content-type": "image/png" };
   if (path.endsWith(".map")) return { "content-type": "application/json" };
   return { "content-type": "application/octet-stream" };
 }

@@ -1,84 +1,58 @@
 @import "tailwindcss";
+@import "@fontsource-variable/schibsted-grotesk/wght.css";
+@import "@fontsource-variable/geist-mono/wght.css";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
 
 @theme {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-destructive-hint: hsl(var(--destructive-hint));
-  --color-warning: hsl(var(--warning));
-  --color-warning-foreground: hsl(var(--warning-foreground));
-  --color-warning-hint: hsl(var(--warning-hint));
-  --color-success: hsl(var(--success));
-  --color-success-foreground: hsl(var(--success-foreground));
-  --color-success-hint: hsl(var(--success-hint));
-  --color-info: hsl(var(--info));
-  --color-info-foreground: hsl(var(--info-foreground));
-  --color-info-hint: hsl(var(--info-hint));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
+  --color-background: #090a0b;
+  --color-foreground: #f6f7f8;
+  --color-card: #161616;
+  --color-card-foreground: #f6f7f8;
+  --color-popover: #161616;
+  --color-popover-foreground: #f6f7f8;
+  --color-primary: #3a63ec;
+  --color-primary-hover: #4a71f2;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1f1f1f;
+  --color-secondary-foreground: #f6f7f8;
+  --color-muted: #1f1f1f;
+  --color-muted-foreground: rgba(244, 244, 243, 0.72);
+  --color-subtle-foreground: rgba(244, 244, 243, 0.5);
+  --color-accent: #749afa;
+  --color-accent-foreground: #090a0b;
+  --color-hover: rgba(244, 244, 243, 0.06);
+  --color-border: rgba(244, 244, 243, 0.1);
+  --color-border-strong: rgba(244, 244, 243, 0.2);
+  --color-input: rgba(244, 244, 243, 0.1);
+  --color-ring: #749afa;
+  --color-canvas: #0e0f10;
+  --color-destructive: #f37370;
+  --color-destructive-foreground: #ffffff;
+  --color-destructive-hint: #2a1414;
+  --color-warning: #e8a33d;
+  --color-warning-foreground: #fdf1dc;
+  --color-warning-hint: #2a1f0d;
+  --color-success: #6cc96a;
+  --color-success-foreground: #e6f7e5;
+  --color-success-hint: #12210f;
+  --color-info: #749afa;
+  --color-info-foreground: #e7eeff;
+  --color-info-hint: #121a2e;
 
-  --font-sans: "Inter Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", monospace;
+  --font-sans: "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono:
+    "Geist Mono Variable", ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas,
+    monospace;
+  --font-card: "Inter Variable", system-ui, sans-serif;
+  --font-card-mono: "JetBrains Mono Variable", monospace;
   --radius: 0.5rem;
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
 }
 
 :root {
-  --background: 0 0% 13%;
-  --foreground: 60 32% 92%;
-
-  --card: 0 0% 16%;
-  --card-foreground: 60 32% 92%;
-
-  --popover: 0 0% 16%;
-  --popover-foreground: 60 32% 92%;
-
-  --primary: 60 32% 92%;
-  --primary-foreground: 0 0% 13%;
-
-  --secondary: 0 0% 21%;
-  --secondary-foreground: 60 32% 92%;
-
-  --muted: 0 0% 16%;
-  --muted-foreground: 0 0% 65%;
-
-  --accent: 341 96% 49%;
-  --accent-foreground: 0 0% 100%;
-
-  --border: 0 0% 22%;
-  --input: 0 0% 24%;
-  --ring: 341 96% 49%;
-
-  --destructive: 0 76% 54%;
-  --destructive-foreground: 0 0% 100%;
-  --destructive-hint: 0 50% 15%;
-  --warning: 41 100% 50%;
-  --warning-foreground: 41 100% 8%;
-  --warning-hint: 35 60% 14%;
-  --success: 161 99% 32%;
-  --success-foreground: 161 80% 95%;
-  --success-hint: 161 70% 12%;
-  --info: 193 70% 50%;
-  --info-foreground: 193 60% 95%;
-  --info-hint: 200 50% 14%;
-
-  --font-sans: "Inter Variable";
-  --font-mono: "JetBrains Mono Variable";
+  color-scheme: dark;
 }
 
 @layer base {
@@ -87,29 +61,66 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
-
-@layer base {
-  * {
-    border-color: hsl(var(--border));
-  }
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
+    border-color: var(--color-border);
   }
   html {
-    overflow-y: auto;
+    background: var(--color-background);
     scrollbar-width: thin;
-    scrollbar-color: hsl(var(--secondary)) hsl(var(--background));
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-primary) 55%, transparent);
+    color: var(--color-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
   }
   code,
   pre,
   kbd,
   samp {
-    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-family: var(--font-mono);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted-foreground);
+  }
+  .deferral-card {
+    font-family: var(--font-card);
+    letter-spacing: normal;
+  }
+  .deferral-card code,
+  .deferral-card kbd,
+  .deferral-card pre {
+    font-family: var(--font-card-mono);
+  }
+  .deferral-card h1,
+  .deferral-card h2,
+  .deferral-card h3 {
+    text-wrap: wrap;
   }
 }

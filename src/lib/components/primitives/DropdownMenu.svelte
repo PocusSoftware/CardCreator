@@ -23,7 +23,7 @@
   const reposition = () => {
     if (!triggerEl) return;
     const r = triggerEl.getBoundingClientRect();
-    const left = align === "end" ? r.right - 160 : r.left;
+    const left = align === "end" ? r.right - 192 : r.left;
     panelPos = { top: r.bottom + 4, left: Math.max(8, left) };
   };
 
@@ -72,7 +72,7 @@
   <div
     use:portal
     data-dropdown-panel
-    class="bg-popover text-popover-foreground fixed z-50 min-w-40 overflow-auto rounded-md border p-1 shadow-lg"
+    class="bg-popover text-popover-foreground fixed z-50 min-w-48 overflow-auto rounded-[var(--radius-control)] border p-1 shadow-xl shadow-black/40"
     style="top:{panelPos.top}px;left:{panelPos.left}px"
     role="menu"
   >

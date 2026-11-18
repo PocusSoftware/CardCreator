@@ -84,7 +84,7 @@ export function normalizeDeferralButtonColorForPicker(value: string | undefined,
     return pick(value ?? '') ?? pick(fallback) ?? '#5865f2';
 }
 
-/** Only http(s) links — used for in-game deferral buttons (opens in the player's browser). */
+/** Only http(s) links, used for in-game deferral buttons (opens in the player's browser). */
 export function sanitizeDeferralButtonUrl(url: string): string {
     const trimmed = url.trim();
     if (!trimmed) return '';
@@ -119,7 +119,7 @@ const DEFERRAL_BUTTON_BASE_STYLE = [
     'cursor:pointer',
 ] as const;
 
-/** @deprecated Use buildDeferralButtonAnchorStyle — kept for studio style parsing fallback. */
+/** @deprecated Use buildDeferralButtonAnchorStyle, kept for studio style parsing fallback. */
 export const DEFERRAL_BUTTON_ANCHOR_STYLE = buildDeferralButtonAnchorStyle(DEFAULT_DEFERRAL_BUTTON_CONTENT);
 
 export function buildDeferralButtonAnchorStyle(

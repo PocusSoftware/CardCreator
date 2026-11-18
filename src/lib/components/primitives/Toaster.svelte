@@ -3,8 +3,8 @@
   import { cn } from "../../cn";
 
   const BAR: Record<ToastType, string> = {
-    default: "border-primary/25 bg-secondary text-secondary-foreground",
-    loading: "border-primary/25 bg-secondary text-secondary-foreground",
+    default: "border-border-strong bg-card text-foreground",
+    loading: "border-border-strong bg-card text-foreground",
     info: "border-info/70 bg-info-hint text-info-foreground",
     success: "border-success/70 bg-success-hint text-success-foreground",
     warning: "border-warning/70 bg-warning-hint text-warning-foreground",
@@ -12,11 +12,11 @@
   };
 </script>
 
-<div class="pointer-events-none fixed top-4 right-4 z-[90] flex w-full max-w-md flex-col gap-2">
+<div class="pointer-events-none fixed right-4 bottom-4 z-[120] flex w-full max-w-md flex-col gap-2">
   {#each toasts as item (item.id)}
     <div
       class={cn(
-        "pointer-events-auto flex items-start justify-between gap-3 rounded-xl border p-3 pr-10 shadow-lg",
+        "pointer-events-auto relative flex items-start justify-between gap-3 rounded-[var(--radius-card)] border p-3 pr-10 shadow-xl shadow-black/40",
         BAR[item.type],
       )}
       role="status"

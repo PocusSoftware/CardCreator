@@ -28,8 +28,8 @@
   role="menuitem"
   {disabled}
   class={cn(
-    "flex w-full cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-left text-sm outline-hidden disabled:pointer-events-none disabled:opacity-50",
-    "hover:bg-secondary/60 focus-visible:ring-2 focus-visible:ring-ring",
+    "flex w-full cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm text-muted-foreground transition-colors duration-150 disabled:pointer-events-none disabled:opacity-45",
+    "hover:bg-hover hover:text-foreground",
     cls,
   )}
   onclick={handle}

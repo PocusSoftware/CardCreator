@@ -22,7 +22,7 @@ export const DeferralCardTemplateSchema = z.object({
 });
 export type DeferralCardTemplate = z.infer<typeof DeferralCardTemplateSchema>;
 
-/** @deprecated Use DeferralCardTemplate — kept for whitelist config migration. */
+/** @deprecated Use DeferralCardTemplate, kept for whitelist config migration. */
 export const WhitelistDeferralCardSchema = DeferralCardTemplateSchema;
 export type WhitelistDeferralCard = DeferralCardTemplate;
 
@@ -45,7 +45,7 @@ export const DeferralScenarioIdSchema = z.enum([
 ]);
 export type DeferralScenarioId = z.infer<typeof DeferralScenarioIdSchema>;
 
-/** Panel static asset (SVG) — deferral cards use {@link DEFERRAL_CARD_WATERMARK_PATH} in-game. */
+/** Panel static asset (SVG), deferral cards use {@link DEFERRAL_CARD_WATERMARK_PATH} in-game. */
 export { DEFERRAL_CARD_LOGO_PATH, DEFERRAL_CARD_WATERMARK_PATH } from './deferralCardLogo';
 
 export {
@@ -103,79 +103,79 @@ export type DeferralScenarioMeta = {
 export const DEFERRAL_SCENARIO_META: DeferralScenarioMeta[] = [
     {
         id: 'ban_temporary',
-        label: 'Ban — temporary',
+        label: 'Ban: temporary',
         description: 'Shown when the player has an active timed ban.',
         group: 'ban',
     },
     {
         id: 'ban_permanent',
-        label: 'Ban — permanent',
+        label: 'Ban: permanent',
         description: 'Shown when the player has a permanent ban.',
         group: 'ban',
     },
     {
         id: 'whitelist_pending',
-        label: 'Whitelist — pending approval',
+        label: 'Whitelist: pending approval',
         description: 'Manual review: player is not on the list; includes request ID when enabled.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_schedule_closed',
-        label: 'Whitelist — applications closed',
+        label: 'Whitelist: applications closed',
         description: 'Join attempted outside configured application windows.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_admin_denied',
-        label: 'Whitelist — admin-only denied',
+        label: 'Whitelist: admin-only denied',
         description: 'Maintenance mode: player is not a panel administrator.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_admin_insufficient_ids',
-        label: 'Whitelist — admin-only missing IDs',
+        label: 'Whitelist: admin-only missing IDs',
         description: 'Maintenance mode: missing license or Discord identifier.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_discord_member_denied',
-        label: 'Whitelist — not in Discord',
+        label: 'Whitelist: not in Discord',
         description: 'Discord member workflow: user is not in the guild.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_discord_member_insufficient_ids',
-        label: 'Whitelist — Discord member missing ID',
+        label: 'Whitelist: Discord member missing ID',
         description: 'Discord member workflow: no discord: identifier.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_discord_roles_not_member',
-        label: 'Whitelist — roles: not in guild',
+        label: 'Whitelist: not in Discord guild (roles)',
         description: 'Discord roles workflow: user is not in the guild.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_discord_roles_no_roles',
-        label: 'Whitelist — roles: missing role',
+        label: 'Whitelist: missing Discord role',
         description: 'Discord roles workflow: member lacks a required role.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_discord_roles_insufficient_ids',
-        label: 'Whitelist — roles: missing ID',
+        label: 'Whitelist: Discord roles missing ID',
         description: 'Discord roles workflow: no discord: identifier.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_insufficient_license',
-        label: 'Whitelist — missing license',
+        label: 'Whitelist: missing license',
         description: 'Manual review: no license identifier on connect.',
         group: 'whitelist',
     },
     {
         id: 'whitelist_error',
-        label: 'Whitelist — validation error',
+        label: 'Whitelist: validation error',
         description: 'Discord or internal validation failed while checking whitelist.',
         group: 'whitelist',
     },
@@ -329,5 +329,5 @@ export function normalizeDeferralCardsConfig(
     });
 }
 
-/** Any scenario id — built-in enum or addon namespaced id. */
+/** Any scenario id, built-in enum or addon namespaced id. */
 export type DeferralAnyScenarioId = DeferralScenarioId | (string & {});

@@ -268,8 +268,8 @@
                 "pointer-events-auto absolute cursor-grab touch-none select-none active:cursor-grabbing",
                 textLike ? "block" : "inline-flex",
                 selectedId === el.id
-                  ? "ring-primary ring-offset-background ring-2 ring-offset-2"
-                  : "hover:ring-primary/40 hover:ring-1",
+                  ? "ring-ring ring-offset-canvas ring-2 ring-offset-2"
+                  : "hover:ring-ring/40 hover:ring-1",
               )}
               style={textLike
                 ? `left:${el.x}px;top:${el.y}px;width:max-content;min-width:${Math.min(width, textMaxWidth)}px;max-width:${textMaxWidth}px;min-height:${height}px;height:auto`
