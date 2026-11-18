@@ -11,20 +11,20 @@
   export type ButtonSize = "default" | "xs" | "sm" | "icon";
 
   const VARIANT: Record<ButtonVariant, string> = {
-    default: "bg-primary text-primary-foreground hover:bg-primary/75",
-    destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/75",
-    secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/75",
-    outline: "border border-foreground hover:bg-primary hover:text-primary-foreground",
-    ghost: "hover:bg-primary hover:text-primary-foreground",
-    muted: "bg-muted text-muted-foreground hover:bg-secondary hover:text-secondary-foreground",
-    "outline-secondary": "border border-secondary bg-transparent text-secondary-foreground hover:bg-secondary/20",
-    "ghost-secondary": "text-secondary-foreground hover:bg-secondary/20",
+    default: "border border-transparent bg-primary text-primary-foreground hover:bg-primary-hover",
+    destructive: "border border-destructive/40 bg-destructive/10 text-destructive hover:bg-destructive/20",
+    secondary: "border bg-card text-foreground hover:border-border-strong hover:bg-muted",
+    outline: "border border-border-strong text-foreground hover:bg-hover",
+    ghost: "text-muted-foreground hover:bg-hover hover:text-foreground",
+    muted: "bg-muted text-muted-foreground hover:text-foreground",
+    "outline-secondary": "border bg-transparent text-foreground hover:border-border-strong hover:bg-hover",
+    "ghost-secondary": "text-foreground hover:bg-hover",
   };
   const SIZE: Record<ButtonSize, string> = {
-    default: "h-10 px-4 py-2",
-    xs: "h-7 rounded-sm px-2 text-sm",
-    sm: "h-9 rounded-md px-3",
-    icon: "size-10",
+    default: "h-10 px-4",
+    xs: "h-7 px-2 text-xs",
+    sm: "h-8 px-3",
+    icon: "size-8",
   };
 </script>
 
@@ -52,7 +52,7 @@
   {type}
   {disabled}
   class={cn(
-    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-[var(--radius-control)] text-sm leading-none font-medium transition-colors duration-150 disabled:pointer-events-none disabled:opacity-45",
     VARIANT[variant],
     SIZE[size],
     cls,

@@ -4,7 +4,11 @@ import App from "./app.svelte";
 const link = document.createElement("link");
 link.rel = "stylesheet";
 link.href = "/app.css";
-document.head.appendChild(link);
+await new Promise<void>((resolve) => {
+  link.onload = () => resolve();
+  link.onerror = () => resolve();
+  document.head.appendChild(link);
+});
 
 const target = document.getElementById("app");
 if (!target) throw new Error("#app not found");

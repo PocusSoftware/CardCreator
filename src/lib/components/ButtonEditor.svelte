@@ -72,12 +72,12 @@
             DEFAULT_DEFERRAL_BUTTON_CONTENT.backgroundColor,
           )}
           oninput={(e) => commit({ ...draft, backgroundColor: (e.target as HTMLInputElement).value })}
-          class="size-9 shrink-0 cursor-pointer rounded border-0 bg-transparent p-0"
+          class="size-9 shrink-0 cursor-pointer rounded-[var(--radius-control)] border bg-transparent p-1"
         />
         <Input
           value={draft.backgroundColor}
           oninput={(e) => commit({ ...draft, backgroundColor: (e.target as HTMLInputElement).value })}
-          class="font-mono text-xs"
+          class="font-mono"
           placeholder="#5865F2"
         />
       </div>
@@ -96,12 +96,12 @@
             DEFAULT_DEFERRAL_BUTTON_CONTENT.textColor,
           )}
           oninput={(e) => commit({ ...draft, textColor: (e.target as HTMLInputElement).value })}
-          class="size-9 shrink-0 cursor-pointer rounded border-0 bg-transparent p-0"
+          class="size-9 shrink-0 cursor-pointer rounded-[var(--radius-control)] border bg-transparent p-1"
         />
         <Input
           value={draft.textColor}
           oninput={(e) => commit({ ...draft, textColor: (e.target as HTMLInputElement).value })}
-          class="font-mono text-xs"
+          class="font-mono"
           placeholder="#ffffff"
         />
       </div>

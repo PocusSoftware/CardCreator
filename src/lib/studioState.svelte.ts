@@ -65,6 +65,7 @@ import {
 import { downloadJson, downloadText, loadStoredDeferralCards, persistDeferralCards } from "./persistence.svelte";
 import { openConfirmDialog } from "./dialog.svelte";
 import { toast } from "./toast.svelte";
+import { templateSupportsScenario, type CardTemplate } from "./templates";
 
 export type { DeferralCanvasElement, DeferralCardTokens, DeferralCardTemplate, DeferralCardSizePresetId };
 
@@ -175,16 +176,15 @@ export function createStudioState() {
 
   const initialCanvasElements: DeferralCanvasElement[] = (() => {
     if (!initialScenario) return [];
-    const cfg = normalizeDeferralCardsConfig(initialConfigRaw);
-    const tpl = getDeferralTemplateOrDefault(cfg, initialScenario);
+    const tpl = getDeferralTemplateOrDefault(initialConfig, initialScenario);
     const sampleBody = PREVIEW_SAMPLE[initialScenario as DeferralScenarioId]?.body ?? "{customMessage}";
     return loadStudioCanvasElements(tpl, initialScenario, sampleBody);
   })();
-  const initialCardSizeValue = initialCardSize(normalizeDeferralCardsConfig(initialConfigRaw), initialScenario);
+  const initialCardSizeValue = initialCardSize(initialConfig, initialScenario);
   const initialSizePreset = matchSizePreset(initialCardSizeValue.width, initialCardSizeValue.height);
 
   let savedConfig = $state<DeferralCardsConfig>(initialConfig);
-  let deferralCards = $state<DeferralCardsConfig>(normalizeDeferralCardsConfig(initialConfigRaw));
+  let deferralCards = $state<DeferralCardsConfig>(structuredClone(initialConfig));
   let scenarioId = $state<string | null>(initialScenario);
   let canvasElements = $state<DeferralCanvasElement[]>(initialCanvasElements);
   let cardSize = $state<{ width: number; height: number }>(initialCardSizeValue);
@@ -495,6 +495,28 @@ export function createStudioState() {
     });
   };
 
+  const applyTemplate = (tpl: CardTemplate) => {
+    if (!scenarioId || !template || isAddonDeferralScenarioId(scenarioId)) return;
+    if (!templateSupportsScenario(tpl, scenarioId)) return;
+    const built = tpl.build(scenarioId as DeferralScenarioId, template.title);
+    pushHistory(false);
+    const size = clampCardSize(built.width, built.height);
+    const elements = normalizeCanvasElements(built.elements, size.width, size.height);
+    cardSize = size;
+    sizePreset = matchSizePreset(size.width, size.height);
+    canvasElements = elements;
+    selectedId = null;
+    deferralCards = patchDeferralScenario(
+      deferralCards,
+      scenarioId,
+      templateWithCanvas(template, { width: size.width, height: size.height, elements }),
+    );
+    toast.success({
+      title: t("panel.card_editor.templates.applied_title", { name: tpl.name }),
+      msg: t("panel.card_editor.templates.applied_msg"),
+    });
+  };
+
   const handleSave = async () => {
     if (!scenarioId || !template || !workingTemplate) {
       toast.error({
@@ -583,9 +605,9 @@ export function createStudioState() {
         toast.error({ title: t("panel.toasts.import_failed"), msg: result.error });
         return;
       }
-      const imported = normalizeDeferralCardsConfig(result.config);
-      deferralCards = imported;
-      savedConfig = canonicalDeferralCardsForDiff(imported);
+      const imported = canonicalDeferralCardsForDiff(normalizeDeferralCardsConfig(result.config));
+      deferralCards = structuredClone(imported);
+      savedConfig = imported;
       persistDeferralCards(imported);
 
       const allImported = [...result.importedScenarios, ...result.importedAddonScenarios];
@@ -708,6 +730,7 @@ export function createStudioState() {
     handleToggleLayerVisible,
     handleReorderLayers,
     handleRestoreDefault,
+    applyTemplate,
     handleSave,
     handleExportScenario,
     handleExportScenarioLua,

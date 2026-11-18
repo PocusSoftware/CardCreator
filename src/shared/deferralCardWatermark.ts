@@ -5,7 +5,7 @@ export const DEFERRAL_TXADMIN_WATERMARK_OPACITY = 0.45;
 export const DEFERRAL_TXADMIN_WATERMARK_RIGHT_PX = -0.5;
 export const DEFERRAL_TXADMIN_WATERMARK_BOTTOM_PX = -1;
 
-/** Legacy large watermark — used only when a layout stores explicit oversized logo dimensions. */
+/** Legacy large watermark, used only when a layout stores explicit oversized logo dimensions. */
 export const DEFERRAL_WATERMARK_INSET_PX = 15;
 export const DEFERRAL_WATERMARK_MAX_WIDTH_PX = 180;
 export const DEFERRAL_WATERMARK_MAX_HEIGHT_PX = 48;

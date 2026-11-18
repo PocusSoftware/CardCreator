@@ -63,9 +63,9 @@
 </script>
 
 {#if !elements.length}
-  <p class="text-muted-foreground text-xs">{t("panel.card_editor.layers.empty")}</p>
+  <p class="text-subtle-foreground px-2 text-xs">{t("panel.card_editor.layers.empty")}</p>
 {:else}
-  <ol class="flex flex-col gap-0.5" role="listbox">
+  <ol class="flex flex-col gap-px" role="listbox" aria-label={t("panel.card_editor.layers_heading")}>
     {#each displayIds as id (id)}
       {@const el = elementById.get(id)}
       {#if el}
@@ -78,6 +78,7 @@
           ondragstart={(e) => onDragStart(e, el.id)}
           ondragover={(e) => onDragOver(e, el.id)}
           ondrop={(e) => onDrop(e, el.id)}
+          ondragend={() => (dragId = null)}
           onkeydown={(e) => {
             if (e.key === "Backspace" || e.key === "Delete") {
               e.preventDefault();
@@ -85,24 +86,28 @@
             }
           }}
           class={cn(
-            "flex w-full min-w-0 items-center gap-1 rounded-md px-1 py-1 text-xs transition-colors",
+            "group flex w-full min-w-0 items-center gap-1 rounded-md py-0.5 pr-1 pl-2 text-[13px] transition-colors duration-150",
             "cursor-grab active:cursor-grabbing",
             selectedId === el.id
-              ? "bg-primary/10 text-foreground"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground",
+              ? "bg-primary/15 text-foreground"
+              : "text-muted-foreground hover:bg-hover hover:text-foreground",
             hidden && "opacity-50",
+            dragId === el.id && "opacity-40",
           )}
         >
           <button
             type="button"
-            class="min-w-0 flex-1 truncate text-left"
+            class="min-w-0 flex-1 truncate py-1 text-left"
             onclick={() => onSelect(el.id)}
           >
             {deferralBlockLabel(t, el.type as DeferralBlockType)}
           </button>
           <button
             type="button"
-            class="text-muted-foreground hover:text-foreground shrink-0"
+            class={cn(
+              "text-subtle-foreground hover:text-foreground grid size-6 shrink-0 place-items-center rounded transition-opacity",
+              !hidden && "opacity-0 group-hover:opacity-100 focus-visible:opacity-100",
+            )}
             aria-label={hidden
               ? t("panel.card_editor.layers.show_element")
               : t("panel.card_editor.layers.hide_element")}

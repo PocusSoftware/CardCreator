@@ -14,8 +14,7 @@
   {type}
   bind:value
   class={cn(
-    "border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
-    "bg-black/30 placeholder:opacity-50",
+    "flex w-full rounded-[var(--radius-control)] border bg-background h-9 px-3 text-sm text-foreground transition-colors duration-150 placeholder:text-subtle-foreground hover:border-border-strong disabled:cursor-not-allowed disabled:opacity-50",
     cls,
   )}
   {...rest}

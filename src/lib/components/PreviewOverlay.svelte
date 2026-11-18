@@ -2,42 +2,29 @@
   import { previewState, closePreview, downloadPublishedCard } from "../preview.svelte";
   import { t } from "../locale/locale";
   import Button from "./primitives/Button.svelte";
+  import Modal from "./primitives/Modal.svelte";
   import Icon from "./Icon.svelte";
 </script>
 
-{#if previewState.open}
-  <div
-    class="fixed inset-0 z-95 flex flex-col items-center justify-center bg-black/70 p-6"
-    onclick={closePreview}
-    onkeydown={(e) => e.key === "Escape" && closePreview()}
-    role="presentation"
-    tabindex="-1"
-  >
-    <div
-      class="bg-card text-card-foreground flex w-full max-w-3xl flex-col rounded-xl border shadow-2xl"
-      onclick={(e) => e.stopPropagation()}
-      onkeydown={(e) => e.stopPropagation()}
-      role="dialog"
-      aria-modal="true"
-      tabindex="-1"
-    >
-      <div class="flex items-center justify-between border-b p-4">
-        <h2 class="text-sm font-semibold">
-          {t("panel.routes.card_editor")} — {previewState.scenarioId}
-        </h2>
-        <div class="flex items-center gap-2">
-          <Button type="button" size="sm" variant="secondary" onclick={downloadPublishedCard}>
-            <Icon name="download" class="mr-1.5 size-3.5" />
-            {t("panel.card_editor.toolbar.export_scenario")}
-          </Button>
-          <Button type="button" size="icon" variant="ghost" onclick={closePreview} aria-label={t("panel.common.close")}>
-            <Icon name="x" class="size-4" />
-          </Button>
-        </div>
-      </div>
-      <div class="bg-background flex max-h-[80vh] items-center justify-center overflow-auto p-8">
-        {@html previewState.html}
-      </div>
+<Modal open={previewState.open} onClose={closePreview} labelledby="preview-title" class="max-w-4xl">
+  <div class="flex items-center justify-between gap-4 border-b px-5 py-3">
+    <div class="min-w-0">
+      <p class="eyebrow">{t("panel.card_editor.preview.eyebrow")}</p>
+      <h2 id="preview-title" class="truncate text-sm font-semibold">
+        {previewState.scenarioId}
+      </h2>
+    </div>
+    <div class="flex items-center gap-2">
+      <Button size="sm" variant="secondary" onclick={downloadPublishedCard}>
+        <Icon name="download" class="size-3.5" />
+        {t("panel.card_editor.preview.download_html")}
+      </Button>
+      <Button size="icon" variant="ghost" onclick={closePreview} aria-label={t("panel.common.close")}>
+        <Icon name="x" class="size-4" />
+      </Button>
     </div>
   </div>
-{/if}
+  <div class="bg-canvas deferral-card flex min-h-64 flex-1 items-center justify-center overflow-auto rounded-b-[var(--radius-card)] p-8">
+    {@html previewState.html}
+  </div>
+</Modal>

@@ -49,7 +49,7 @@ export function listDirtyDeferralScenarioIds(
 
 /**
  * Builds a full deferralCards payload that updates only the active scenario on the server baseline.
- * Other scenarios stay as last saved — in-memory edits to them are not persisted.
+ * Other scenarios stay as last saved, in-memory edits to them are not persisted.
  */
 export function buildDeferralCardsSavePayload(
     savedBaseline: DeferralCardsConfig,

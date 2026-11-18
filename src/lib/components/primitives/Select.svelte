@@ -87,11 +87,13 @@
     {id}
     bind:this={triggerEl}
     type="button"
-    class="border-input bg-background ring-offset-background flex h-full w-full items-center justify-between rounded-md border px-3 text-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
+    class="flex h-full w-full items-center justify-between gap-2 rounded-[var(--radius-control)] border bg-background px-3 text-sm transition-colors duration-150 hover:border-border-strong"
+    aria-haspopup="listbox"
+    aria-expanded={open}
     onclick={() => (open ? (open = false) : openMenu())}
   >
     <span class={cn("truncate", value ? "text-foreground" : "text-muted-foreground")}>{selectedLabel}</span>
-    <svg class="text-muted-foreground size-4 opacity-50 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <svg class="text-subtle-foreground size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="m6 9 6 6 6-6" />
     </svg>
   </button>
@@ -101,13 +103,13 @@
   <div
     use:portal
     data-select-panel={id ?? ""}
-    class="bg-popover text-popover-foreground fixed z-50 max-h-72 overflow-auto rounded-md border p-1 shadow-lg"
+    class="bg-popover text-popover-foreground fixed z-50 max-h-80 overflow-auto rounded-[var(--radius-control)] border p-1 shadow-xl shadow-black/40"
     style="top:{panelPos.top}px;left:{panelPos.left}px;width:{panelPos.width}px"
     role="listbox"
   >
     {#each groups as [group, opts] (group)}
       {#if group}
-        <div class="text-muted-foreground px-2 py-1.5 text-xs font-semibold tracking-wide uppercase">{group}</div>
+        <div class="eyebrow px-2 pt-2 pb-1">{group}</div>
       {/if}
       {#each opts as o (o.value)}
         <button
@@ -117,12 +119,12 @@
           aria-disabled={o.disabled}
           disabled={o.disabled}
           class={cn(
-            "flex w-full items-center rounded-sm px-2 py-1.5 text-left text-sm outline-hidden",
+            "flex w-full items-center rounded-md px-2 py-1.5 text-left text-sm",
             o.disabled
-              ? "text-muted-foreground/50 cursor-not-allowed"
+              ? "text-subtle-foreground cursor-not-allowed"
               : value === o.value
-                ? "bg-secondary text-secondary-foreground cursor-pointer"
-                : "hover:bg-secondary/60 cursor-pointer",
+                ? "bg-hover text-foreground cursor-pointer"
+                : "text-muted-foreground hover:bg-hover hover:text-foreground cursor-pointer",
           )}
           onclick={() => {
             if (o.disabled) return;
